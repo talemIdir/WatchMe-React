@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { BiMovie } from "react-icons/bi";
 import {
-  AiFillHome,
+  AiOutlineHome,
   AiOutlineCompass,
   AiOutlineFieldTime,
 } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
+  const [selected, setSelected] = useState("home");
+
   return (
     <Content>
       <Header>
@@ -17,19 +20,31 @@ const Sidebar = () => {
       <Menu>
         <MenuText>Menu</MenuText>
         <MenuItems>
-          <MenuItem>
+          <MenuItem
+            onClick={() => setSelected("home")}
+            focused={selected === "home" ? "true" : "false"}
+            to="/"
+          >
             <Icon>
-              <AiFillHome />
+              <AiOutlineHome />
             </Icon>
             Home
           </MenuItem>
-          <MenuItem>
+          <MenuItem
+            onClick={() => setSelected("discover")}
+            focused={selected === "discover" ? "true" : "false"}
+            to="/discover"
+          >
             <Icon>
               <AiOutlineCompass />
             </Icon>
             Discover
           </MenuItem>
-          <MenuItem>
+          <MenuItem
+            onClick={() => setSelected("coming")}
+            focused={selected === "coming" ? "true" : "false"}
+            to="/coming"
+          >
             <Icon>
               <AiOutlineFieldTime />
             </Icon>
@@ -42,11 +57,11 @@ const Sidebar = () => {
 };
 
 const Content = styled.div`
-  width: 15em;
+  min-width: 15em;
   display: flex;
   flex-direction: column;
   font-weight: 500;
-  color: var(--main-dark-color);
+  color: var(--main-light-color);
   border-right: var(--main-verylight-color) 1px solid;
 `;
 
@@ -79,17 +94,21 @@ const MenuText = styled.div`
 
 const MenuItems = styled.div``;
 
-const MenuItem = styled.div`
+const MenuItem = styled(Link)`
+  text-decoration: none;
   display: flex;
   height: 2.5em;
   align-items: center;
   padding-left: 2em;
+  border-right: ${(props) =>
+    props.focused == "true" ? "var(--main-red-color) solid 5px" : ""};
+  color: ${(props) =>
+    props.focused == "true"
+      ? "var(--main-dark-color)"
+      : "var(--main-light-color)"};
   &:hover {
     cursor: pointer;
-    background-color: var(--main-verylight-color);
-  }
-  &:focus-within {
-    background-color: red;
+    background-color: #d7dbf0;
   }
 `;
 
