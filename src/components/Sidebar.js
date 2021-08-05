@@ -57,22 +57,29 @@ const Sidebar = () => {
 };
 
 const Content = styled.div`
-  min-width: 15em;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   font-weight: 500;
   color: var(--main-light-color);
   border-right: var(--main-verylight-color) 1px solid;
+
+  @media (max-width: 710px) {
+    flex-direction: row;
+  }
 `;
 
 const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   margin: 2em 0em;
   font-size: 1.5em;
   color: var(--main-dark-color);
+
+  @media (max-width: 710px) {
+    margin: 0em 1em;
+  }
 `;
 
 const HeaderIcon = styled(BiMovie)`
@@ -84,15 +91,28 @@ const Menu = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  @media (max-width: 710px) {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
 `;
 
 const MenuText = styled.div`
   padding: 1.5em 0em;
   color: var(--main-verylight-color);
   padding-left: 2em;
+  @media (max-width: 710px) {
+    display: none;
+  }
 `;
 
-const MenuItems = styled.div``;
+const MenuItems = styled.div`
+  @media (max-width: 710px) {
+    display: flex;
+    flex-direction: row;
+  }
+`;
 
 const MenuItem = styled(Link)`
   text-decoration: none;
@@ -109,6 +129,13 @@ const MenuItem = styled(Link)`
   &:hover {
     cursor: pointer;
     background-color: #d7dbf0;
+  }
+
+  @media (max-width: 710px) {
+    padding: 0em 0.5em;
+    border-right: none;
+    border-bottom: ${(props) =>
+      props.focused == "true" ? "var(--main-red-color) solid 5px" : ""};
   }
 `;
 

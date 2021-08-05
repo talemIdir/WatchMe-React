@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import useHomeData from "../../Hooks/useHomeData";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
+import HomeCarousel from "./HomeCarousel";
 
 const Home = () => {
   const [selected, setSelected] = useState("movies");
@@ -21,41 +21,18 @@ const Home = () => {
           TV Series
         </Category>
       </Categories>
-      {!isLoading ? (
-        <HomeCarousel>
-          <Carousel>
-            <div>
-              <img
-                alt="s"
-                src={
-                  "https://image.tmdb.org/t/p/original" + data[0].backdrop_path
-                }
-              />
-              <p className="legend">Legend 1</p>
-            </div>
-            <div>
-              <img
-                alt="s"
-                src={
-                  "https://image.tmdb.org/t/p/original" + data[1].backdrop_path
-                }
-              />
-              <p className="legend">Legend 2</p>
-            </div>
-          </Carousel>
-        </HomeCarousel>
-      ) : (
-        <div>Hey</div>
-      )}
+      {!isLoading ? <HomeCarousel data={data.slice(0, 5)} /> : <div>Hey</div>}
     </Container>
   );
 };
 
 const Container = styled.div`
+  flex: 4;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding: 3.5em;
+  align-items: center;
+  padding: 40px;
+  background-color: var(--main-bg-color);
   color: var(--main-light-color);
   font-weight: 500;
 `;
@@ -63,6 +40,8 @@ const Container = styled.div`
 const Categories = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
+  padding-bottom: 1.5em;
 `;
 
 const Category = styled.div`
@@ -72,10 +51,6 @@ const Category = styled.div`
     cursor: pointer;
     color: var(--main-dark-color);
   }
-`;
-
-const HomeCarousel = styled.div`
-  height: 200px;
 `;
 
 export default Home;

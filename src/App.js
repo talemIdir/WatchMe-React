@@ -27,8 +27,14 @@ function App() {
 
 const Main = styled.div`
   display: flex;
+  flex-direction: row;
+
   background-color: var(--main-bg-color);
   height: 100vh;
+
+  @media (max-width: 710px) {
+    flex-direction: column;
+  }
 `;
 
 const Content = styled.div`
