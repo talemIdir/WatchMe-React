@@ -32,7 +32,7 @@ const Main = styled.div`
   background-color: var(--main-bg-color);
   height: 100vh;
 
-  @media (max-width: 710px) {
+  @media (max-width: 800px) {
     flex-direction: column;
   }
 `;

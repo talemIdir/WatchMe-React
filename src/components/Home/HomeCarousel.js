@@ -12,34 +12,42 @@ const HomeCarousel = ({ data }) => {
     slidesToScroll: 1,
   };
   return (
-    <Carousel {...settings}>
-      {data.map((movie) => {
-        return (
-          <CarouselContent key={movie.id}>
-            <CarouselImage
-              alt="s"
-              src={"https://image.tmdb.org/t/p/original" + movie.backdrop_path}
-            />
-            <CarouselInfo>
-              <CarouselName>{movie.title}</CarouselName>
-              <CarouselOverview>{movie.overview}</CarouselOverview>
-              <CarouselCategories>Cat</CarouselCategories>
-            </CarouselInfo>
-          </CarouselContent>
-        );
-      })}
-    </Carousel>
+    <Content>
+      <Carousel {...settings}>
+        {data.map((movie) => {
+          return (
+            <CarouselContent key={movie.id}>
+              <CarouselImage
+                alt="s"
+                src={
+                  "https://image.tmdb.org/t/p/original" + movie.backdrop_path
+                }
+              />
+              <CarouselInfo>
+                <CarouselName>{movie.title}</CarouselName>
+                <CarouselOverview>{movie.overview}</CarouselOverview>
+                <CarouselCategories>Cat</CarouselCategories>
+              </CarouselInfo>
+            </CarouselContent>
+          );
+        })}
+      </Carousel>
+    </Content>
   );
 };
 
+const Content = styled.div`
+  display: grid;
+`;
+
 const Carousel = styled(Slider)`
-  width: calc(100vw - 290px);
+  width: 100%;
   height: 350px;
   border-radius: 20px;
   overflow: hidden;
 
-  @media (max-width: 710px) {
-    width: 90vw;
+  @media (max-width: 800px) {
+    width: 100%;
   }
 
   .slick-prev {
@@ -52,7 +60,7 @@ const Carousel = styled(Slider)`
   }
 
   & img {
-    width: inherit;
+    width: 100%;
     height: inherit;
   }
 

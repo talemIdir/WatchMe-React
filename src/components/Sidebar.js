@@ -64,8 +64,11 @@ const Content = styled.div`
   color: var(--main-light-color);
   border-right: var(--main-verylight-color) 1px solid;
 
-  @media (max-width: 710px) {
+  @media (max-width: 800px) {
     flex-direction: row;
+    border-bottom: var(--main-verylight-color) 1px solid;
+    border-right: none;
+    justify-content: space-between;
   }
 `;
 
@@ -77,7 +80,7 @@ const Header = styled.div`
   font-size: 1.5em;
   color: var(--main-dark-color);
 
-  @media (max-width: 710px) {
+  @media (max-width: 800px) {
     margin: 0em 1em;
   }
 `;
@@ -90,11 +93,9 @@ const HeaderIcon = styled(BiMovie)`
 const Menu = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
 
-  @media (max-width: 710px) {
-    flex-direction: row;
-    justify-content: flex-end;
+  @media (max-width: 800px) {
+    display: block;
   }
 `;
 
@@ -102,13 +103,13 @@ const MenuText = styled.div`
   padding: 1.5em 0em;
   color: var(--main-verylight-color);
   padding-left: 2em;
-  @media (max-width: 710px) {
+  @media (max-width: 800px) {
     display: none;
   }
 `;
 
 const MenuItems = styled.div`
-  @media (max-width: 710px) {
+  @media (max-width: 800px) {
     display: flex;
     flex-direction: row;
   }
@@ -116,6 +117,7 @@ const MenuItems = styled.div`
 
 const MenuItem = styled(Link)`
   text-decoration: none;
+  box-sizing: border-box;
   display: flex;
   height: 2.5em;
   align-items: center;
@@ -131,7 +133,7 @@ const MenuItem = styled(Link)`
     background-color: #d7dbf0;
   }
 
-  @media (max-width: 710px) {
+  @media (max-width: 800px) {
     padding: 0em 0.5em;
     border-right: none;
     border-bottom: ${(props) =>
