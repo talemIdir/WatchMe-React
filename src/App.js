@@ -29,6 +29,8 @@ const Main = styled.div`
   display: flex;
   flex-direction: row;
 
+  overflow-y: hidden;
+
   background-color: var(--main-bg-color);
   height: 100vh;
 

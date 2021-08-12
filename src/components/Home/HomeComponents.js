@@ -4,13 +4,14 @@ import { ImCircleRight, ImCircleLeft } from "react-icons/im";
 
 import useHomeTrending from "../../Hooks/useHomeTrending";
 import Slider from "react-slick";
-const HomeTrending = ({ type }) => {
-  const { data, isLoading, error } = useHomeTrending(type);
+
+const HomeComponents = ({ type, title, link }) => {
+  const { data, isLoading, error } = useHomeTrending(type, link);
   const trendingCarousel = useRef();
 
   const settings = {
     className: "slider variable-width",
-    infinite: false,
+    infinite: true,
     swipeToSlide: true,
     variableWidth: true,
   };
@@ -18,7 +19,7 @@ const HomeTrending = ({ type }) => {
   return (
     <Container>
       <Header>
-        <Title>Trending</Title>
+        <Title>{title}</Title>
         <HeaderIcons>
           <Icon onClick={() => trendingCarousel.current.slickPrev()}>
             <ImCircleLeft />
@@ -117,4 +118,4 @@ const CarouselImage = styled.img`
   border-radius: 5px;
 `;
 
-export default HomeTrending;
+export default HomeComponents;

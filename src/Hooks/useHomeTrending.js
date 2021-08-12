@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const useHomeData = (type) => {
+const useHomeData = (type, link) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-
+  console.log(link);
   useEffect(() => {
     setData([]);
     setIsLoading(true);
 
     axios
-      .get(
-        `
-        https://api.themoviedb.org/3/trending/${type}/day?api_key=${process.env.REACT_APP_APIKey}&language=en-US&sort_by=popularity.desc&include_adult=false`
-      )
+      .get(link)
       .then((res) => {
         setData(res.data.results);
         setIsLoading(false);

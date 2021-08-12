@@ -57,12 +57,16 @@ const Sidebar = () => {
 };
 
 const Content = styled.div`
-  min-width: 200px;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
   font-weight: 500;
   color: var(--main-light-color);
   border-right: var(--main-verylight-color) 1px solid;
+
+  @media (max-width: 1100px) {
+    min-width: 200px;
+  }
 
   @media (max-width: 800px) {
     flex-direction: row;

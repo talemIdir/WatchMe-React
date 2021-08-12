@@ -85,6 +85,8 @@ const CarouselImage = styled.img`
 const CarouselInfo = styled.div`
   position: absolute;
   bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
