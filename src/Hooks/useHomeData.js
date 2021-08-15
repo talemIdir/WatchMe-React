@@ -22,7 +22,6 @@ const useHomeData = (type) => {
             movie["backdrop_path"] = movie["poster_path"];
           return movie;
         });
-        console.log(operatedData);
         setData(operatedData);
         setIsLoading(false);
       })

@@ -13,7 +13,14 @@ const useHomeData = (type, link) => {
     axios
       .get(link)
       .then((res) => {
-        setData(res.data.results);
+        const operatedData = res.data.results.map((movie) => {
+          if (typeof movie["title"] === "undefined")
+            movie["title"] = movie["name"];
+          if (movie["backdrop_path"] === null)
+            movie["backdrop_path"] = movie["poster_path"];
+          return movie;
+        });
+        setData(operatedData);
         setIsLoading(false);
       })
       .catch((err) => {
