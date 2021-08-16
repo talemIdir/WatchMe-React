@@ -5,6 +5,7 @@ import { BiErrorCircle } from "react-icons/bi";
 
 import useHomeTrending from "../../Hooks/useHomeTrending";
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
 
 const HomeComponents = ({ type, title, link }) => {
   const { data, isLoading, error } = useHomeTrending(type, link);
@@ -34,23 +35,23 @@ const HomeComponents = ({ type, title, link }) => {
       <Content>
         <Carousel {...settings} ref={trendingCarousel}>
           {data.map((movie) => {
-            return movie.poster_path ? (
-              <CarouselContent key={movie.id}>
-                <CarouselImage
-                  alt="s"
-                  src={
-                    "https://image.tmdb.org/t/p/original" + movie.poster_path
-                  }
-                />
-                <CarouselInfo>
-                  <CarouselName>{movie.title}</CarouselName>
-                </CarouselInfo>
-              </CarouselContent>
-            ) : (
-              <CarouselContent key={movie.id}>
-                <CarouselNoImage>
-                  <BiErrorCircle />
-                </CarouselNoImage>
+            return (
+              <CarouselContent
+                key={movie.id}
+                to={type === "movie" ? "movie/" + movie.id : "tv/" + movie.id}
+              >
+                {movie.poster_path ? (
+                  <CarouselImage
+                    alt="s"
+                    src={
+                      "https://image.tmdb.org/t/p/original" + movie.poster_path
+                    }
+                  />
+                ) : (
+                  <CarouselNoImage>
+                    <BiErrorCircle />
+                  </CarouselNoImage>
+                )}
                 <CarouselInfo>
                   <CarouselName>{movie.title}</CarouselName>
                 </CarouselInfo>
@@ -123,7 +124,7 @@ const Carousel = styled(Slider)`
   }
 `;
 
-const CarouselContent = styled.div`
+const CarouselContent = styled(Link)`
   position: relative;
   width: 130px;
   height: 190px;

@@ -5,7 +5,7 @@ const useHomeData = (type, link) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-  console.log(link);
+
   useEffect(() => {
     setData([]);
     setIsLoading(true);

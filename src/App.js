@@ -4,7 +4,9 @@ import "./App.css";
 import Coming from "./components/Coming";
 import Discover from "./components/Discover";
 import Home from "./components/Home/Home";
+import Movie from "./components/Movie";
 import Sidebar from "./components/Sidebar";
+import TV from "./components/TV";
 
 function App() {
   return (
@@ -16,6 +18,12 @@ function App() {
         </Route>
         <Route path="/coming">
           <Coming />
+        </Route>
+        <Route path="/movie/:id">
+          <Movie />
+        </Route>
+        <Route path="/tv/:id">
+          <TV />
         </Route>
         <Route path="/">
           <Home />
