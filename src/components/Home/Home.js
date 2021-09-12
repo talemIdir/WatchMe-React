@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import useHomeData from "../../Hooks/useHomeData";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import UseAnimations from "react-useanimations";
+import loadingIcon from "react-useanimations/lib/loading";
+
 import HomeCarousel from "./HomeCarousel";
 import HomeComponents from "./HomeComponents";
 
@@ -26,7 +29,8 @@ const Home = () => {
           TV Series
         </Category>
       </Categories>
-      {!isLoading ? <HomeCarousel data={data.slice(0, 5)} /> : <div>Hey</div>}
+      <HomeCarousel data={data.slice(0, 5)} loading={isLoading} />
+
       <HomeComponents
         type={selected}
         link={`https://api.themoviedb.org/3/trending/${selected}/day?api_key=${process.env.REACT_APP_APIKey}&language=en-US&sort_by=popularity.desc&include_adult=false`}
@@ -81,6 +85,11 @@ const Category = styled.div`
     cursor: pointer;
     color: var(--main-dark-color);
   }
+`;
+
+const LoadingIconContainer = styled(UseAnimations)`
+  height: 100% !important;
+  margin: auto;
 `;
 
 export default Home;

@@ -1,17 +1,27 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import UseAnimations from "react-useanimations";
+import loadingIcon from "react-useanimations/lib/loading";
+
+import Carousel from "./Carousel";
 
 const Movie = () => {
   let { id } = useParams();
   const [movie, setMovie] = useState();
+  const [similar, setSimilar] = useState();
+  const [similarLoading, setSimilarLoading] = useState(true);
   const [loading, setLoading] = useState(true);
   const [genres, setGenres] = useState();
 
   useEffect(() => {
     const cat = [];
-    const axiosFetch = axios
+    const source = axios.CancelToken.source();
+    setLoading(true);
+    setSimilarLoading(true);
+    // Getting Movie Information
+    axios
       .get(
         `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_APIKey}&language=en-US`
       )
@@ -20,27 +30,50 @@ const Movie = () => {
 
         res.data.genres.map((genre) => {
           cat.push(genre.name);
+          return null;
         });
         setGenres(cat);
 
         setLoading(false);
       })
       .catch((err) => {
-        console.warn(err);
+        console.error(err);
       });
-    return axiosFetch;
-  }, []);
+
+    // Gettin Similar Movies
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.REACT_APP_APIKey}&language=en-US&page=1`
+      )
+      .then((res) => {
+        setSimilar(res.data.results);
+        setSimilarLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    return () => {
+      source.cancel();
+    };
+  }, [id]);
 
   return (
     <Container>
       {loading ? (
-        <div>Loading</div>
+        <LoadingIconContainer
+          animation={loadingIcon}
+          size={70}
+          speed={0.7}
+          strokeColor={"var(--main-red-color)"}
+        />
       ) : (
         <>
-          <BackgroundImage
-            src={"https://image.tmdb.org/t/p/original" + movie.backdrop_path}
-            alt="background-image"
-          />
+          <ImageContainer>
+            <BackgroundImage
+              src={"https://image.tmdb.org/t/p/original" + TV.backdrop_path}
+              alt="background-image"
+            />
+          </ImageContainer>
           <Content>
             <Genres>{genres.join(", ")}</Genres>
             <MovieName>{movie.title}</MovieName>
@@ -50,6 +83,11 @@ const Movie = () => {
               Release date: {movie.release_date} | Vote average:{" "}
               {movie.vote_average}
             </MovieRelease>
+            {!similarLoading ? (
+              <Carousel data={similar} title={"Similar movies"} />
+            ) : (
+              <div>Hey there</div>
+            )}
           </Content>
         </>
       )}
@@ -62,6 +100,11 @@ const Container = styled.div`
   position: relative;
   padding: 40px;
   flex: 1;
+`;
+
+const LoadingIconContainer = styled(UseAnimations)`
+  height: 100% !important;
+  margin: auto;
 `;
 
 const BackgroundImage = styled.img`
@@ -141,7 +184,7 @@ const MovieOverview = styled.div`
 `;
 
 const MovieRelease = styled(Genres)`
-  font-weight: 500;
+  font-weight: 400;
 `;
 
 export default Movie;

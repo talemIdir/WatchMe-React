@@ -3,8 +3,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import styled from "styled-components";
+import UseAnimations from "react-useanimations";
+import loadingIcon from "react-useanimations/lib/loading";
 
-const HomeCarousel = ({ data }) => {
+const HomeCarousel = ({ data, loading }) => {
   const settings = {
     infinite: true,
     speed: 500,
@@ -13,31 +15,45 @@ const HomeCarousel = ({ data }) => {
   };
   return (
     <Content>
-      <Carousel {...settings}>
-        {data.map((movie) => {
-          return (
-            <CarouselContent key={movie.id}>
-              <CarouselImage
-                alt="s"
-                src={
-                  "https://image.tmdb.org/t/p/original" + movie.backdrop_path
-                }
-              />
-              <CarouselInfo>
-                <CarouselName>{movie.title}</CarouselName>
-                <CarouselOverview>{movie.overview}</CarouselOverview>
-                <CarouselCategories>Cat</CarouselCategories>
-              </CarouselInfo>
-            </CarouselContent>
-          );
-        })}
-      </Carousel>
+      {loading ? (
+        <LoadingIconContainer
+          animation={loadingIcon}
+          size={70}
+          speed={0.7}
+          strokeColor={"var(--main-red-color)"}
+        />
+      ) : (
+        <Carousel {...settings}>
+          {data.map((movie) => {
+            return (
+              <CarouselContent key={movie.id}>
+                <CarouselImage
+                  alt="s"
+                  src={
+                    "https://image.tmdb.org/t/p/original" + movie.backdrop_path
+                  }
+                />
+                <CarouselInfo>
+                  <CarouselName>{movie.title}</CarouselName>
+                  <CarouselOverview>{movie.overview}</CarouselOverview>
+                  <CarouselCategories>Cat</CarouselCategories>
+                </CarouselInfo>
+              </CarouselContent>
+            );
+          })}
+        </Carousel>
+      )}
     </Content>
   );
 };
 
 const Content = styled.div`
   display: grid;
+`;
+
+const LoadingIconContainer = styled(UseAnimations)`
+  height: 100% !important;
+  margin: auto;
 `;
 
 const Carousel = styled(Slider)`
