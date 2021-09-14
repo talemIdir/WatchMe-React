@@ -5,6 +5,7 @@ import styled from "styled-components";
 import UseAnimations from "react-useanimations";
 import loadingIcon from "react-useanimations/lib/loading";
 
+import Reviews from "./Reviews";
 import Carousel from "./Carousel";
 
 const Movie = () => {
@@ -70,24 +71,27 @@ const Movie = () => {
         <>
           <ImageContainer>
             <BackgroundImage
-              src={"https://image.tmdb.org/t/p/original" + TV.backdrop_path}
+              src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
               alt="background-image"
             />
           </ImageContainer>
           <Content>
-            <Genres>{genres.join(", ")}</Genres>
-            <MovieName>{movie.title}</MovieName>
-            <MovieTagline>{movie.tagline}</MovieTagline>
-            <MovieOverview>{movie.overview}</MovieOverview>
-            <MovieRelease>
-              Release date: {movie.release_date} | Vote average:{" "}
-              {movie.vote_average}
-            </MovieRelease>
+            <MovieInformation>
+              <Genres>{genres.join(", ")}</Genres>
+              <MovieName>{movie.title}</MovieName>
+              <MovieTagline>{movie.tagline}</MovieTagline>
+              <MovieOverview>{movie.overview}</MovieOverview>
+              <MovieRelease>
+                Release date: {movie.release_date} | Vote average:{" "}
+                {movie.vote_average}/10
+              </MovieRelease>
+            </MovieInformation>
             {!similarLoading ? (
               <Carousel data={similar} title={"Similar movies"} />
             ) : (
               <div>Hey there</div>
             )}
+            <Reviews type="movie" id={id} />
           </Content>
         </>
       )}
@@ -100,6 +104,7 @@ const Container = styled.div`
   position: relative;
   padding: 40px;
   flex: 1;
+  overflow-y: auto;
 `;
 
 const LoadingIconContainer = styled(UseAnimations)`
@@ -107,13 +112,17 @@ const LoadingIconContainer = styled(UseAnimations)`
   margin: auto;
 `;
 
+const ImageContainer = styled.div`
+  overflow: hidden;
+`;
+
 const BackgroundImage = styled.img`
   position: absolute;
-  bottom: 10%;
+  bottom: 20%;
   left: 15%;
   width: 100%;
   height: 100%;
-  transform: scale(0.9);
+  transform: scale(0.72);
 `;
 
 const Content = styled.div`
@@ -125,12 +134,18 @@ const Content = styled.div`
   height: -webkit-fill-available;
   padding: 30px;
   color: var(--main-dark-color);
-  background: rgb(255, 255, 255);
   background: radial-gradient(
-    at 100% 0%,
+    at 90% 10%,
     rgba(255, 255, 255, 0) 8%,
     rgba(252, 252, 253, 1) 40%
   );
+`;
+
+const MovieInformation = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
 `;
 
 const Genres = styled.div`
@@ -138,7 +153,7 @@ const Genres = styled.div`
   font-weight: 300;
 
   @media (max-width: 800px) {
-    font-size: 2.5vw;
+    font-size: 2.2vw;
   }
   @media (max-width: 500px) {
     font-size: 3vw;
@@ -147,10 +162,10 @@ const Genres = styled.div`
 
 const MovieName = styled.div`
   font-weight: 500;
-  font-size: 3.2vw;
+  font-size: 3.5vw;
 
   @media (max-width: 800px) {
-    font-size: 5vw;
+    font-size: 4.5vw;
   }
 
   @media (max-width: 500px) {
@@ -163,7 +178,7 @@ const MovieTagline = styled.div`
   font-size: 1.4vw;
 
   @media (max-width: 800px) {
-    font-size: 2.5vw;
+    font-size: 2.2vw;
   }
   @media (max-width: 500px) {
     font-size: 3vw;
@@ -175,8 +190,11 @@ const MovieOverview = styled.div`
   font-weight: 300;
   font-size: 1.5vw;
 
+  @media (max-width: 1000px) {
+    font-size: 1.8vw;
+  }
   @media (max-width: 800px) {
-    font-size: 3vw;
+    font-size: 2.8vw;
   }
   @media (max-width: 500px) {
     font-size: 4vw;
@@ -185,6 +203,7 @@ const MovieOverview = styled.div`
 
 const MovieRelease = styled(Genres)`
   font-weight: 400;
+  margin-bottom: 10px;
 `;
 
 export default Movie;

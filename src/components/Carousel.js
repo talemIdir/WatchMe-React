@@ -29,7 +29,7 @@ const Carousel = ({ data, title, type }) => {
       <CarouselComponent {...settings} ref={trendingCarousel}>
         {data.map((movie) => {
           return (
-            <CarouselContent key={movie.id} to={"" + movie.id} replace>
+            <CarouselContent key={movie.id} to={"/movie/" + movie.id}>
               {movie.poster_path ? (
                 <CarouselImage
                   alt="s"
@@ -43,7 +43,9 @@ const Carousel = ({ data, title, type }) => {
                 </CarouselNoImage>
               )}
               <CarouselInfo>
-                <CarouselName>{movie.title}</CarouselName>
+                <CarouselName>
+                  {movie.title ? movie.title : movie.name}
+                </CarouselName>
               </CarouselInfo>
             </CarouselContent>
           );

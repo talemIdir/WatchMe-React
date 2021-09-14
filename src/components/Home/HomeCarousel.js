@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import styled from "styled-components";
 import UseAnimations from "react-useanimations";
 import loadingIcon from "react-useanimations/lib/loading";
+import { Link } from "react-router-dom";
 
 const HomeCarousel = ({ data, loading }) => {
   const settings = {
@@ -36,7 +37,9 @@ const HomeCarousel = ({ data, loading }) => {
                 <CarouselInfo>
                   <CarouselName>{movie.title}</CarouselName>
                   <CarouselOverview>{movie.overview}</CarouselOverview>
-                  <CarouselCategories>Cat</CarouselCategories>
+                  <CarouselSeeMore to={"/movie/" + movie.id}>
+                    See more
+                  </CarouselSeeMore>
                 </CarouselInfo>
               </CarouselContent>
             );
@@ -105,7 +108,7 @@ const CarouselInfo = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: flex-end;
   padding: 40px;
   background: linear-gradient(
@@ -117,7 +120,7 @@ const CarouselInfo = styled.div`
 
 const CarouselName = styled.div`
   color: white;
-  font-size: 50px;
+  font-size: 45px;
   font-weight: 500;
   text-align: left;
   display: -webkit-box;
@@ -137,8 +140,11 @@ const CarouselOverview = styled.div`
   margin-bottom: 10px;
 `;
 
-const CarouselCategories = styled.div`
-  margin-bottom: 10px;
+const CarouselSeeMore = styled(Link)`
+  cursor: pointer;
+  text-align: right;
+  color: var(--main-light-color);
+  text-decoration: none;
 `;
 
 export default HomeCarousel;

@@ -70,19 +70,21 @@ const TV = () => {
         <>
           <ImageContainer>
             <BackgroundImage
-              src={"https://image.tmdb.org/t/p/original" + TV.backdrop_path}
+              src={"https://image.tmdb.org/t/p/original" + TV.poster_path}
               alt="background-image"
             />
           </ImageContainer>
           <Content>
-            <Genres>{genres.join(", ")}</Genres>
-            <TVName>{TV.name}</TVName>
-            <TVTagline>{TV.tagline}</TVTagline>
-            <TVOverview>{TV.overview}</TVOverview>
-            <TVRelease>
-              First Air Date: {TV.first_air_date} | Vote average:{" "}
-              {TV.vote_average}
-            </TVRelease>
+            <TVInformation>
+              <Genres>{genres.join(", ")}</Genres>
+              <TVName>{TV.name}</TVName>
+              <TVTagline>{TV.tagline}</TVTagline>
+              <TVOverview>{TV.overview}</TVOverview>
+              <TVRelease>
+                First Air Date: {TV.first_air_date} | Vote average:{" "}
+                {TV.vote_average}
+              </TVRelease>
+            </TVInformation>
             {!similarLoading ? (
               <Carousel data={similar} title={"Similar TV Series"} />
             ) : (
@@ -96,11 +98,11 @@ const TV = () => {
 };
 
 const Container = styled.div`
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   position: relative;
   padding: 40px;
   flex: 1;
+  overflow-y: auto;
 `;
 
 const LoadingIconContainer = styled(UseAnimations)`
@@ -108,17 +110,17 @@ const LoadingIconContainer = styled(UseAnimations)`
   margin: auto;
 `;
 
+const ImageContainer = styled.div`
+  overflow: hidden;
+`;
+
 const BackgroundImage = styled.img`
   position: absolute;
-  bottom: 10%;
+  bottom: 20%;
   left: 15%;
   width: 100%;
   height: 100%;
-  transform: scale(0.9);
-`;
-
-const ImageContainer = styled.div`
-  overflow: hidden;
+  transform: scale(0.72);
 `;
 
 const Content = styled.div`
@@ -127,16 +129,21 @@ const Content = styled.div`
   position: absolute;
   left: 0;
   top: 0;
-  height: 100%;
+  height: -webkit-fill-available;
   padding: 30px;
   color: var(--main-dark-color);
-  background: rgb(255, 255, 255);
   background: radial-gradient(
-    at 100% 0%,
+    at 90% 10%,
     rgba(255, 255, 255, 0) 8%,
     rgba(252, 252, 253, 1) 40%
   );
-  box-sizing: border-box;
+`;
+
+const TVInformation = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
 `;
 
 const Genres = styled.div`
@@ -144,7 +151,7 @@ const Genres = styled.div`
   font-weight: 300;
 
   @media (max-width: 800px) {
-    font-size: 2.5vw;
+    font-size: 2.2vw;
   }
   @media (max-width: 500px) {
     font-size: 3vw;
@@ -153,10 +160,10 @@ const Genres = styled.div`
 
 const TVName = styled.div`
   font-weight: 500;
-  font-size: 3.2vw;
+  font-size: 3.5vw;
 
   @media (max-width: 800px) {
-    font-size: 5vw;
+    font-size: 4.5vw;
   }
 
   @media (max-width: 500px) {
@@ -169,7 +176,7 @@ const TVTagline = styled.div`
   font-size: 1.4vw;
 
   @media (max-width: 800px) {
-    font-size: 2.5vw;
+    font-size: 2.2vw;
   }
   @media (max-width: 500px) {
     font-size: 3vw;
@@ -179,10 +186,10 @@ const TVTagline = styled.div`
 const TVOverview = styled.div`
   padding: 20px 40% 20px 0px;
   font-weight: 300;
-  font-size: 1.5vw;
+  font-size: 2vw;
 
   @media (max-width: 800px) {
-    font-size: 3vw;
+    font-size: 2.8vw;
   }
   @media (max-width: 500px) {
     font-size: 4vw;
@@ -191,6 +198,7 @@ const TVOverview = styled.div`
 
 const TVRelease = styled(Genres)`
   font-weight: 400;
+  margin-bottom: 10px;
 `;
 
 export default TV;
