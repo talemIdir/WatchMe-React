@@ -6,6 +6,7 @@ import UseAnimations from "react-useanimations";
 import loadingIcon from "react-useanimations/lib/loading";
 
 import Carousel from "./Carousel";
+import Reviews from "./Reviews";
 
 const TV = () => {
   let { id } = useParams();
@@ -90,6 +91,7 @@ const TV = () => {
             ) : (
               <div>Hey there</div>
             )}
+            <Reviews type="tv" id={id} />
           </Content>
         </>
       )}
@@ -147,9 +149,12 @@ const TVInformation = styled.div`
 `;
 
 const Genres = styled.div`
-  font-size: 1.4vw;
+  font-size: 1.2vw;
   font-weight: 300;
 
+  @media (max-width: 1000px) {
+    font-size: 1.4vw;
+  }
   @media (max-width: 800px) {
     font-size: 2.2vw;
   }
@@ -160,8 +165,11 @@ const Genres = styled.div`
 
 const TVName = styled.div`
   font-weight: 500;
-  font-size: 3.5vw;
+  font-size: 3vw;
 
+  @media (max-width: 1000px) {
+    font-size: 3.5vw;
+  }
   @media (max-width: 800px) {
     font-size: 4.5vw;
   }
@@ -173,8 +181,11 @@ const TVName = styled.div`
 
 const TVTagline = styled.div`
   color: var(--main-verylight-color);
-  font-size: 1.4vw;
+  font-size: 1.1vw;
 
+  @media (max-width: 1000px) {
+    font-size: 1.4vw;
+  }
   @media (max-width: 800px) {
     font-size: 2.2vw;
   }
@@ -186,8 +197,11 @@ const TVTagline = styled.div`
 const TVOverview = styled.div`
   padding: 20px 40% 20px 0px;
   font-weight: 300;
-  font-size: 2vw;
+  font-size: 1.3vw;
 
+  @media (max-width: 1000px) {
+    font-size: 1.8vw;
+  }
   @media (max-width: 800px) {
     font-size: 2.8vw;
   }

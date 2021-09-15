@@ -29,7 +29,11 @@ const Home = () => {
           TV Series
         </Category>
       </Categories>
-      <HomeCarousel data={data.slice(0, 5)} loading={isLoading} />
+      <HomeCarousel
+        data={data.slice(0, 5)}
+        loading={isLoading}
+        type={selected}
+      />
 
       <HomeComponents
         type={selected}

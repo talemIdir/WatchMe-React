@@ -7,7 +7,7 @@ import UseAnimations from "react-useanimations";
 import loadingIcon from "react-useanimations/lib/loading";
 import { Link } from "react-router-dom";
 
-const HomeCarousel = ({ data, loading }) => {
+const HomeCarousel = ({ data, loading, type }) => {
   const settings = {
     infinite: true,
     speed: 500,
@@ -37,7 +37,9 @@ const HomeCarousel = ({ data, loading }) => {
                 <CarouselInfo>
                   <CarouselName>{movie.title}</CarouselName>
                   <CarouselOverview>{movie.overview}</CarouselOverview>
-                  <CarouselSeeMore to={"/movie/" + movie.id}>
+                  <CarouselSeeMore
+                    to={type === "movie" ? "/movie/" : "/tv/" + movie.id}
+                  >
                     See more
                   </CarouselSeeMore>
                 </CarouselInfo>

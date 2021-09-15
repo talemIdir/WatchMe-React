@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import UseAnimations from "react-useanimations";
@@ -149,9 +149,12 @@ const MovieInformation = styled.div`
 `;
 
 const Genres = styled.div`
-  font-size: 1.4vw;
+  font-size: 1.2vw;
   font-weight: 300;
 
+  @media (max-width: 1000px) {
+    font-size: 1.4vw;
+  }
   @media (max-width: 800px) {
     font-size: 2.2vw;
   }
@@ -162,8 +165,11 @@ const Genres = styled.div`
 
 const MovieName = styled.div`
   font-weight: 500;
-  font-size: 3.5vw;
+  font-size: 3vw;
 
+  @media (max-width: 1000px) {
+    font-size: 3.5vw;
+  }
   @media (max-width: 800px) {
     font-size: 4.5vw;
   }
@@ -175,8 +181,11 @@ const MovieName = styled.div`
 
 const MovieTagline = styled.div`
   color: var(--main-verylight-color);
-  font-size: 1.4vw;
+  font-size: 1.1vw;
 
+  @media (max-width: 1000px) {
+    font-size: 1.4vw;
+  }
   @media (max-width: 800px) {
     font-size: 2.2vw;
   }
@@ -188,7 +197,7 @@ const MovieTagline = styled.div`
 const MovieOverview = styled.div`
   padding: 20px 40% 20px 0px;
   font-weight: 300;
-  font-size: 1.5vw;
+  font-size: 1.3vw;
 
   @media (max-width: 1000px) {
     font-size: 1.8vw;

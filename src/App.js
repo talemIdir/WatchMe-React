@@ -1,7 +1,7 @@
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
-import Coming from "./components/Coming";
+import Coming from "./components/ComingSoon/Coming";
 import Discover from "./components/Discover";
 import Home from "./components/Home/Home";
 import Movie from "./components/Movie";

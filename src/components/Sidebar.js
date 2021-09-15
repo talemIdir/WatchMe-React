@@ -9,7 +9,12 @@ import {
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
-  const [selected, setSelected] = useState("home");
+  if (sessionStorage.getItem("selectedMenu") == null)
+    sessionStorage.setItem("selectedMenu", "home");
+
+  const [selected, setSelected] = useState(
+    sessionStorage.getItem("selectedMenu")
+  );
 
   return (
     <Content>
@@ -21,7 +26,10 @@ const Sidebar = () => {
         <MenuText>Menu</MenuText>
         <MenuItems>
           <MenuItem
-            onClick={() => setSelected("home")}
+            onClick={() => {
+              setSelected("home");
+              sessionStorage.setItem("selectedMenu", "home");
+            }}
             focused={selected === "home" ? "true" : "false"}
             to="/"
           >
@@ -31,7 +39,10 @@ const Sidebar = () => {
             Home
           </MenuItem>
           <MenuItem
-            onClick={() => setSelected("discover")}
+            onClick={() => {
+              setSelected("discover");
+              sessionStorage.setItem("selectedMenu", "discover");
+            }}
             focused={selected === "discover" ? "true" : "false"}
             to="/discover"
           >
@@ -41,7 +52,10 @@ const Sidebar = () => {
             Discover
           </MenuItem>
           <MenuItem
-            onClick={() => setSelected("coming")}
+            onClick={() => {
+              setSelected("coming");
+              sessionStorage.setItem("selectedMenu", "coming");
+            }}
             focused={selected === "coming" ? "true" : "false"}
             to="/coming"
           >
