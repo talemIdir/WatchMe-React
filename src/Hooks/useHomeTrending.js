@@ -9,6 +9,7 @@ const useHomeData = (type, link) => {
   useEffect(() => {
     setData([]);
     setIsLoading(true);
+    const source = axios.CancelToken.source();
 
     axios
       .get(link)
@@ -24,8 +25,11 @@ const useHomeData = (type, link) => {
         setIsLoading(false);
       })
       .catch((err) => {
-        setError(err);
+        setError(err.response.data.status_message);
       });
+    return () => {
+      source.cancel();
+    };
   }, [type, link]);
   return { data, isLoading, error };
 };
