@@ -34,12 +34,11 @@ const TV = () => {
           return null;
         });
         setGenres(cat);
-
-        setLoading(false);
       })
       .catch((err) => {
         console.error(err);
-      });
+      })
+      .finally(() => setLoading(false));
 
     // Gettin Similar TVs
     axios

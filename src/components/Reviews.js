@@ -18,9 +18,6 @@ const Reviews = ({ type, id }) => {
       .then((res) => {
         setReviews(res.data.results);
         setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
       });
 
     return () => {

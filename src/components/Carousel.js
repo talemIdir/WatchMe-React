@@ -29,10 +29,7 @@ const Carousel = ({ data, title, type }) => {
       <CarouselComponent {...settings} ref={trendingCarousel}>
         {data.map((movie) => {
           return (
-            <CarouselContent
-              key={movie.id}
-              to={type === "movie" ? "/movie/" : "/tv/" + movie.id}
-            >
+            <CarouselContent key={movie.id} to={"" + movie.id}>
               {movie.poster_path ? (
                 <CarouselImage
                   alt="s"
