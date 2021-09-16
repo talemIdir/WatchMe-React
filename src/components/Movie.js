@@ -87,7 +87,11 @@ const Movie = () => {
               </MovieRelease>
             </MovieInformation>
             {!similarLoading ? (
-              <Carousel data={similar} title={"Similar movies"} />
+              <Carousel
+                data={similar}
+                title={"Similar movies"}
+                type={"movie"}
+              />
             ) : (
               <div>Hey there</div>
             )}
