@@ -141,9 +141,9 @@ const MenuItem = styled(Link)`
   align-items: center;
   padding-left: 2em;
   border-right: ${(props) =>
-    props.focused == "true" ? "var(--main-red-color) solid 5px" : ""};
+    props.focused === "true" ? "var(--main-red-color) solid 5px" : ""};
   color: ${(props) =>
-    props.focused == "true"
+    props.focused === "true"
       ? "var(--main-dark-color)"
       : "var(--main-light-color)"};
   &:hover {
@@ -155,7 +155,7 @@ const MenuItem = styled(Link)`
     padding: 0em 0.5em;
     border-right: none;
     border-bottom: ${(props) =>
-      props.focused == "true" ? "var(--main-red-color) solid 5px" : ""};
+      props.focused === "true" ? "var(--main-red-color) solid 5px" : ""};
   }
 `;
 

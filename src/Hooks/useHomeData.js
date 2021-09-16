@@ -26,7 +26,7 @@ const useHomeData = (type) => {
         setIsLoading(false);
       })
       .catch((err) => {
-        console.warn(err);
+        setError(err);
       });
 
     return axiosFetch;

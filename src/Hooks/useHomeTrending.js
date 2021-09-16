@@ -24,9 +24,9 @@ const useHomeData = (type, link) => {
         setIsLoading(false);
       })
       .catch((err) => {
-        console.warn(err);
+        setError(err);
       });
-  }, [type]);
+  }, [type, link]);
   return { data, isLoading, error };
 };
 

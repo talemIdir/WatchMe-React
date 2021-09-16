@@ -8,7 +8,7 @@ import Slider from "react-slick";
 import { Link } from "react-router-dom";
 
 const HomeComponents = ({ type, title, link }) => {
-  const { data, isLoading, error } = useHomeTrending(type, link);
+  const { data } = useHomeTrending(type, link);
   const trendingCarousel = useRef();
 
   const settings = {

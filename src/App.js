@@ -47,8 +47,4 @@ const Main = styled.div`
   }
 `;
 
-const Content = styled.div`
-  flex: 1;
-`;
-
 export default App;

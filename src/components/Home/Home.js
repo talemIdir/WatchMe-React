@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import useHomeData from "../../Hooks/useHomeData";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import UseAnimations from "react-useanimations";
-import loadingIcon from "react-useanimations/lib/loading";
 
 import HomeCarousel from "./HomeCarousel";
 import HomeComponents from "./HomeComponents";
@@ -11,7 +9,7 @@ import HomeComponents from "./HomeComponents";
 const Home = () => {
   const [selected, setSelected] = useState("movie");
 
-  const { data, isLoading, error } = useHomeData(selected);
+  const { data, isLoading } = useHomeData(selected);
 
   return (
     <Container>
@@ -89,11 +87,6 @@ const Category = styled.div`
     cursor: pointer;
     color: var(--main-dark-color);
   }
-`;
-
-const LoadingIconContainer = styled(UseAnimations)`
-  height: 100% !important;
-  margin: auto;
 `;
 
 export default Home;
