@@ -9,8 +9,9 @@ const useHomeData = (type) => {
   useEffect(() => {
     setData([]);
     setIsLoading(true);
+    const source = axios.CancelToken.source();
 
-    const axiosFetch = axios
+    axios
       .get(
         `https://api.themoviedb.org/3/discover/${type}?api_key=${process.env.REACT_APP_APIKey}&language=en-US&sort_by=popularity.desc&include_adult=false`
       )
@@ -23,13 +24,15 @@ const useHomeData = (type) => {
           return movie;
         });
         setData(operatedData);
-        setIsLoading(false);
       })
       .catch((err) => {
-        setError(err);
-      });
+        setError(err.response.data.status_message);
+      })
+      .finally(() => setIsLoading(false));
 
-    return axiosFetch;
+    return () => {
+      source.cancel();
+    };
   }, [type]);
   return { data, isLoading, error };
 };

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import useHomeData from "../../Hooks/useHomeData";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import UseAnimations from "react-useanimations";
+import loadingIcon from "react-useanimations/lib/loading";
 
 import HomeCarousel from "./HomeCarousel";
 import HomeComponents from "./HomeComponents";
@@ -9,57 +11,71 @@ import HomeComponents from "./HomeComponents";
 const Home = () => {
   const [selected, setSelected] = useState("movie");
 
-  const { data, isLoading } = useHomeData(selected);
+  const { data, isLoading, error } = useHomeData(selected);
 
   return (
     <Container>
-      <Categories>
-        <Category
-          focused={selected === "movie" ? true : false}
-          onClick={() => setSelected("movie")}
-        >
-          Movies
-        </Category>
-        <Category
-          focused={selected === "tv" ? true : false}
-          onClick={() => setSelected("tv")}
-        >
-          TV Series
-        </Category>
-      </Categories>
-      <HomeCarousel
-        data={data.slice(0, 5)}
-        loading={isLoading}
-        type={selected}
-      />
+      {isLoading ? (
+        <Loading
+          animation={loadingIcon}
+          size={70}
+          speed={0.7}
+          strokeColor={"var(--main-red-color)"}
+        />
+      ) : error !== "" ? (
+        <Error>{error}</Error>
+      ) : (
+        <>
+          <Categories>
+            <Category
+              focused={selected === "movie" ? true : false}
+              onClick={() => setSelected("movie")}
+            >
+              Movies
+            </Category>
+            <Category
+              focused={selected === "tv" ? true : false}
+              onClick={() => setSelected("tv")}
+            >
+              TV Series
+            </Category>
+          </Categories>
+          <HomeCarousel
+            data={data.slice(0, 5)}
+            loading={isLoading}
+            type={selected}
+          />
 
-      <HomeComponents
-        type={selected}
-        link={`https://api.themoviedb.org/3/trending/${selected}/day?api_key=${process.env.REACT_APP_APIKey}&language=en-US&sort_by=popularity.desc&include_adult=false`}
-        title={"Trending"}
-      />
-      <HomeComponents
-        type={selected}
-        link={`
+          <HomeComponents
+            type={selected}
+            link={`https://api.themoviedb.org/3/trending/${selected}/day?api_key=${process.env.REACT_APP_APIKey}&language=en-US&sort_by=popularity.desc&include_adult=false`}
+            title={"Trending"}
+          />
+          <HomeComponents
+            type={selected}
+            link={`
         https://api.themoviedb.org/3/${selected}/popular?api_key=${process.env.REACT_APP_APIKey}&language=en-US&page=1`}
-        title={"Popular"}
-      />
-      <HomeComponents
-        type={selected}
-        link={
-          selected === "movie"
-            ? `
+            title={"Popular"}
+          />
+          <HomeComponents
+            type={selected}
+            link={
+              selected === "movie"
+                ? `
         https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_APIKey}&language=en-US&page=1`
-            : `https://api.themoviedb.org/3/tv/airing_today?api_key=${process.env.REACT_APP_APIKey}&language=en-US&page=1`
-        }
-        title={"Latest"}
-      />
+                : `https://api.themoviedb.org/3/tv/airing_today?api_key=${process.env.REACT_APP_APIKey}&language=en-US&page=1`
+            }
+            title={"Latest"}
+          />
+        </>
+      )}
     </Container>
   );
 };
 
 const Container = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: stretch;
   padding: 40px 100px 0 100px;
@@ -71,6 +87,17 @@ const Container = styled.div`
   @media (max-width: 1100px) {
     padding: 40px 40px 0 40px;
   }
+`;
+
+const Error = styled.div`
+  flex: 1;
+  text-align: center;
+  color: var(--main-red-color);
+`;
+
+const Loading = styled(UseAnimations)`
+  height: 100% !important;
+  margin: auto;
 `;
 
 const Categories = styled.div`
