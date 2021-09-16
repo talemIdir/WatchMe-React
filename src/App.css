@@ -5,3 +5,9 @@
   --main-verylight-color: #b6bbd3;
   --main-red-color: #d22f26;
 }
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
