@@ -22,11 +22,11 @@ const useHomeData = (type, link) => {
           return movie;
         });
         setData(operatedData);
-        setIsLoading(false);
       })
       .catch((err) => {
         setError(err.response.data.status_message);
-      });
+      })
+      .finally(() => setIsLoading(false));
     return () => {
       source.cancel();
     };
