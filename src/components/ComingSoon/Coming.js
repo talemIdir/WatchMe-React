@@ -10,7 +10,7 @@ const Coming = () => {
   const [numberPages, setNumberPages] = useState(0);
   const [selectedPage, setSelectedPage] = useState(0);
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const source = axios.CancelToken.source();
