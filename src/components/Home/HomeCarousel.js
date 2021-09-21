@@ -38,7 +38,11 @@ const HomeCarousel = ({ data, loading, type }) => {
                   <CarouselName>{movie.title}</CarouselName>
                   <CarouselOverview>{movie.overview}</CarouselOverview>
                   <CarouselSeeMore
-                    to={type === "movie" ? "/movie/" : "/tv/" + movie.id}
+                    to={
+                      type === "movie"
+                        ? "/movie/" + movie.id
+                        : "/tv/" + movie.id
+                    }
                   >
                     See more
                   </CarouselSeeMore>
