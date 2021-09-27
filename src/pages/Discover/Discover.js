@@ -112,6 +112,7 @@ const Discover = () => {
     return () => {
       source.cancel();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleSearchByKeyword(e) {
