@@ -15,6 +15,17 @@ const Discover = () => {
   const [numberPages, setNumberPages] = useState(0);
   const [selectedPage, setSelectedPage] = useState(0);
   const [error, setError] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("all");
+  const [selectedOrder, setSelectedOrder] = useState("popularity.asc");
+
+  const orderByValues = [
+    { id: "popularity.asc", name: "Popularity ASC" },
+    { id: "popularity.desc", name: "Popularity DESC" },
+    { id: "release_date.asc", name: "Release Date ASC" },
+    { id: "release_date.desc", name: "Release Date DESC" },
+    { id: "vote_average.asc", name: "Vote Average ASC" },
+    { id: "vote_average.desc", name: "Vote Average DESC" },
+  ];
 
   const params = new URLSearchParams(useLocation().search);
   let history = useHistory();
@@ -24,6 +35,11 @@ const Discover = () => {
 
     const keyword = params.get("keyword");
     setKeywordInput(keyword);
+
+    const genreFromUrl = params.get("with_genres");
+
+    const orderFromUrl = params.get("sort_by");
+
     const page = params.get("page") ? params.get("page") : 1;
     setSelectedPage(page);
 
@@ -55,22 +71,88 @@ const Discover = () => {
         .catch((err) => {
           console.error(err.response.data);
         });
+    } else if (orderFromUrl && orderFromUrl !== "") {
+      setLoading(true);
+      // Search for movies by keywords
+
+      setSelectedGenre(genreFromUrl);
+      setSelectedOrder(orderFromUrl);
+
+      axios
+        .get(
+          genreFromUrl !== "all"
+            ? `https://api.themoviedb.org/3/discover/${type}?api_key=${process.env.REACT_APP_APIKey}&with_genres=${genreFromUrl}&sort_by=${orderFromUrl}&page=${page}`
+            : `https://api.themoviedb.org/3/discover/${type}?api_key=${process.env.REACT_APP_APIKey}&sort_by=${orderFromUrl}&page=${page}`
+        )
+        .then((res) => {
+          setData(res.data.results);
+
+          if (data.length === 0) setError("Not found");
+
+          setNumberPages(res.data.total_pages);
+          setSelectedPage(page - 1);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error(err.response.data);
+        });
     }
+
+    axios
+      .get(
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_APIKey}&language=en-US`
+      )
+      .then((res) => {
+        setGenres(res.data.genres);
+      })
+      .catch((err) => {
+        console.error(err.response.data);
+      });
 
     return () => {
       source.cancel();
     };
-  }, [type]);
+  }, []);
 
   function handleSearchByKeyword(e) {
     e.preventDefault();
     history.push("/discover?keyword=" + keywordInput + "&page=1");
   }
 
-  function handlePageChange(selected) {
+  function handleSearchByGenre(e) {
+    e.preventDefault();
+
     history.push(
-      "/discover?keyword=" + keywordInput + "&page=" + (selected + 1)
+      "/discover?with_genres=" +
+        selectedGenre +
+        "&sort_by=" +
+        selectedOrder +
+        "&page=1"
     );
+  }
+
+  function handlePageChange(selected) {
+    if (keywordInput === "null")
+      history.push(
+        "/discover?keyword=" + keywordInput + "&page=" + (selected + 1)
+      );
+    else if (selectedOrder !== "null")
+      history.push(
+        "/discover?with_genres=" +
+          selectedGenre +
+          "&sort_by=" +
+          selectedOrder +
+          "&page=" +
+          (selected + 1)
+      );
+  }
+
+  function handleOrderChange(e) {
+    setSelectedOrder(e.target.value);
+  }
+
+  function handleGenreChange(e) {
+    setSelectedGenre(e.target.value);
   }
 
   return (
@@ -102,6 +184,42 @@ const Discover = () => {
           </Button>
         </KeywordForm>
       </SearchByKeyWord>
+
+      <SearchByGenreForm>
+        <SearchByGenre>
+          <Title>Search by Genre</Title>
+          <SelectGenre onChange={(e) => handleGenreChange(e)}>
+            <option value="all">All</option>
+            {genres.map((genre) => {
+              return (
+                <option key={genre.id} value={genre.id}>
+                  {genre.name}
+                </option>
+              );
+            })}
+          </SelectGenre>
+        </SearchByGenre>
+        <OrderBy>
+          <Title>Order By</Title>
+          <SelectGenre onChange={(e) => handleOrderChange(e)}>
+            {orderByValues.map((orderByValue) => {
+              return (
+                <option key={orderByValue.id} value={orderByValue.id}>
+                  {orderByValue.name}
+                </option>
+              );
+            })}
+          </SelectGenre>
+        </OrderBy>
+        <SearchByGenreButton
+          type="submit"
+          value="Submit"
+          onClick={handleSearchByGenre}
+        >
+          Search
+        </SearchByGenreButton>
+      </SearchByGenreForm>
+
       {loading ? (
         <LoadingIconContainer
           animation={loadingIcon}
@@ -212,6 +330,22 @@ const Category = styled.div`
 
 const SearchByKeyWord = styled.form``;
 
+const SearchByGenreForm = styled.form`
+  display: flex;
+`;
+const SearchByGenre = styled.div`
+  flex: 10;
+`;
+const OrderBy = styled.div`
+  flex: 10;
+`;
+
+const SelectGenre = styled.select`
+  padding: 5px;
+  margin: 5px 1px;
+  width: 97%;
+`;
+
 const Title = styled.div`
   display: block;
 `;
@@ -231,6 +365,13 @@ const Button = styled.button`
   margin: 5px;
 `;
 
+const SearchByGenreButton = styled.button`
+  height: 30px;
+  align-self: end;
+  margin: 5px;
+  flex: 3.8;
+`;
+
 const LoadingIconContainer = styled(UseAnimations)`
   height: 100% !important;
   margin: auto;
@@ -243,6 +384,10 @@ const StyledPaginateContainer = styled.div`
     justify-content: center;
     list-style: none;
     user-select: none;
+  }
+  ul {
+    padding-left: 0px;
+    flex-wrap: wrap;
   }
   li {
     padding: 10px;

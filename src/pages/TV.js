@@ -5,8 +5,8 @@ import styled from "styled-components";
 import UseAnimations from "react-useanimations";
 import loadingIcon from "react-useanimations/lib/loading";
 
-import Carousel from "./Carousel";
-import Reviews from "./Reviews";
+import Carousel from "../components/Carousel";
+import Reviews from "../components/Reviews";
 
 const TV = () => {
   let { id } = useParams();

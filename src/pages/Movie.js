@@ -5,8 +5,8 @@ import styled from "styled-components";
 import UseAnimations from "react-useanimations";
 import loadingIcon from "react-useanimations/lib/loading";
 
-import Reviews from "./Reviews";
-import Carousel from "./Carousel";
+import Reviews from "../components/Reviews";
+import Carousel from "../components/Carousel";
 
 const Movie = () => {
   let { id } = useParams();

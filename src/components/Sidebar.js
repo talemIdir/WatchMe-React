@@ -88,6 +88,10 @@ const Content = styled.div`
     border-right: none;
     justify-content: space-between;
   }
+
+  @media (max-width: 510px) {
+    flex-direction: column;
+  }
 `;
 
 const Header = styled.div`
@@ -156,6 +160,9 @@ const MenuItem = styled(Link)`
     border-right: none;
     border-bottom: ${(props) =>
       props.focused === "true" ? "var(--main-red-color) solid 5px" : ""};
+  }
+  @media (max-width: 510px) {
+    flex: 1;
   }
 `;
 

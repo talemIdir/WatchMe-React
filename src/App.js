@@ -1,12 +1,12 @@
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
-import Coming from "./components/ComingSoon/Coming";
-import Discover from "./components/Discover";
-import Home from "./components/Home/Home";
-import Movie from "./components/Movie";
+import Coming from "./pages/ComingSoon/Coming";
+import Discover from "./pages/Discover/Discover";
+import Home from "./pages/Home/Home";
+import Movie from "./pages/Movie";
 import Sidebar from "./components/Sidebar";
-import TV from "./components/TV";
+import TV from "./pages/TV";
 
 function App() {
   return (
